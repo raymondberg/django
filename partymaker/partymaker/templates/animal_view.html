@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+    <form action="" method="post">
+{% csrf_token %}
+{{ form }}
+<form action="/party/animal/{{ id }}/" method="post">
+{% if submitbutton %}
+    <input type="submit" value="{{ submitbutton }}"/>
+    <input type="button" value="Cancel" onclick="document.location = '/party/animal/'"/>
+{% else %}
+    <input type="button" value="Edit" onclick="document.location ='/party/animal/{{ id }}/edit'"/>
+{% endif %}
+</form>
+<table>
+    <tr><td>Name</td><td>Rating</td></tr>
+{% for rating in ratings %}
+    <tr>
+        <td> {{ rating.ratee.email }}</td>
+        <td> {{ rating.liking }} </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="2">No ratings yet!....<a href="">you should add some!</a></td></tr>
+{% endfor %}
+</table>
+</body>
+</html>

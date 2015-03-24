@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<a href="..">Back</a>
+<table>
+    <tr><td>Name</td><td>Email</td><td>Phone</td><td>Neighborhood</td></tr>
+{% for animal in animals %}
+    <tr>
+        <td> <a href="/party/animal/{{ animal.id }}/"> {{ animal.last_name }}, {{ animal.first_name }} </a></td>
+        <td> {{ animal.email }} </td>
+        <td> {{ animal.phone }} </td>
+        <td> {{ animal.neighborhood }} </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="4">No party animals....<a href="new/">you should add some!</a></td></tr>
+{% endfor %}
+</table>
+</body>
+</html>
