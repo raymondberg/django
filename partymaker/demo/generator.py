@@ -41,14 +41,20 @@ class PartyMakerGenerator:
             animal.save()
 
     @staticmethod
-    def rateAnimals():
+    def rateAnimals(oneIn=10,rateSingle=False):
         animals = Animal.objects.all()
         for i in range(0,len(animals)):
             print "Processing ratings for %d / %d" % (i, len(animals))
             center = random.randrange(0,9)
-            for j in range(0,len(animals)):
-                if i == j or random.randint(0,10) != 1:
-                    continue
-                deviation = random.randrange(-2,2)
-                actual = min(max(0, center + deviation), 9)
-                animals[i].rate(animals[j], actual)
+            if rateSingle:
+                animals[i].rate(animals[random.randint(i,len(animals))], PartyMakerGenerator.randomRating(center))
+            else:
+                for j in range(0,len(animals)):
+                    if i == j or random.randint(0,oneIn) != 1:
+                        continue
+                    animals[i].rate(animals[j], PartyMakerGenerator.randomRating(center))
+
+    @staticmethod
+    def randomRating(centerSeed=5):
+        deviation = random.randrange(-2,2)
+        return (max(0, centerSeed + deviation), 9)
